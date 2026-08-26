@@ -1,0 +1,41 @@
+# Solo para desarrollo local. En produccion Cloud Run usa el Dockerfile de la
+# raiz, que empaqueta frontend y backend en una sola imagen.
+#
+#   docker compose up
+#   -> API   http://localhost:8000  (docs en /api/docs)
+#   -> Front http://localhost:5173
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    ports:
+      - '8000:8000'
+    environment:
+      PROLOG_KB: /app/prolog/base.pl
+      # En local si conviene tener el endpoint de consultas en crudo.
+      ALLOW_RAW_QUERY: 'true'
+      # Sin build de Vite montado, el backend sirve solo la API.
+      STATIC_DIR: /app/static
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --workers 1
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app
+      # Volumen anonimo para que node_modules del contenedor no sea pisado por
+      # el del host (que puede tener binarios compilados para Windows).
+      - /app/node_modules
+    environment:
+      # Dentro de compose el backend no esta en localhost sino en su servicio.
+      VITE_PROXY_TARGET: http://backend:8000
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - backend

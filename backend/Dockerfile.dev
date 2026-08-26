@@ -1,0 +1,19 @@
+# Solo para desarrollo local con docker compose.
+# A diferencia del Dockerfile de la raiz, este NO copia el codigo: docker
+# compose monta ./backend como volumen para que --reload funcione. Aqui solo
+# se hornean las dependencias (apt + pip) para que "docker compose up" no las
+# reinstale en cada arranque.
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends swi-prolog-nox \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install -r requirements.txt

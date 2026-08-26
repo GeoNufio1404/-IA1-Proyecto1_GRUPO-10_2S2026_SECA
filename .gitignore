@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Node / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# Entorno
+.env
+.env.local
+.env.*.local
+
+# NUNCA subas la llave de la service account al repositorio.
+# Va en GitHub Secrets como GCP_SA_KEY.
+*.json.key
+gcp-key.json
+service-account*.json
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+
+# Configuracion local de Claude Code (permisos de esta maquina, no del equipo)
+.claude/settings.local.json
+
+# SO
+.DS_Store
+Thumbs.db
+
+backend/prolog/casos_admin.pl
