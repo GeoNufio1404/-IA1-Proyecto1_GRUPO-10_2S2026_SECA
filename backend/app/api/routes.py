@@ -12,7 +12,7 @@ from app.models.schemas import (
     CasoCreate, SospechosoCreate, LugarCreate, LugarIncidenteCreate,
     EvidenciaCreate, DeclaracionCreate, MotivoCreate, MediosCreate,
     AccesoCreate, ContradiccionEvidenciaCreate, ContradiccionDeclaracionCreate,
-    EvidenciaSenalaCreate,
+    EvidenciaSenalaCreate, AcusacionCreate,
 )
 from app.services.prolog_engine import PrologError, get_engine, quote_atom
 
@@ -489,6 +489,46 @@ def obtener_explicacion(caso:str, sospechoso:str):
     return {
         "caso": caso,
         "sospechoso": sospechoso,
+        "explicacion": razones,
+    }
+
+"======================================================"
+@router.post("/casos/{caso}/acusar", tags=["casos"])
+def acusar_sospechoso(caso: str, payload: AcusacionCreate):
+    """Registra la acusacion del detective y verifica si coincide con el
+    responsable logico calculado por Prolog.
+
+    No agrega logica nueva a la base de conocimiento: combina tres reglas
+    que ya existen (responsable_logico, nivel_sospecha, explicacion).
+    """
+    validar_caso(caso)
+    validar_sospechoso(caso, payload.sospechoso)
+
+    objetivo_responsable = f"responsable_logico({quote_atom(caso)}, Sospechoso)"
+    objetivo_nivel = (
+        f"nivel_sospecha({quote_atom(caso)}, {quote_atom(payload.sospechoso)}, Nivel)"
+    )
+    objetivo_explicacion = (
+        f"explicacion({quote_atom(caso)}, {quote_atom(payload.sospechoso)}, ListaDeRazones)"
+    )
+
+    try:
+        sol_responsable = get_engine().query(objetivo_responsable, limit=1)
+        sol_nivel = get_engine().query(objetivo_nivel, limit=1)
+        sol_explicacion = get_engine().query(objetivo_explicacion, limit=1)
+    except PrologError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    responsable_logico = sol_responsable[0].get("Sospechoso") if sol_responsable else None
+    nivel = sol_nivel[0].get("Nivel", 0) if sol_nivel else 0
+    razones = sol_explicacion[0].get("ListaDeRazones", []) if sol_explicacion else []
+
+    return {
+        "caso": caso,
+        "sospechoso_acusado": payload.sospechoso,
+        "correcto": responsable_logico == payload.sospechoso,
+        "responsable_logico": responsable_logico,
+        "nivel_sospecha": nivel,
         "explicacion": razones,
     }
 

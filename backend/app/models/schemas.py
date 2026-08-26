@@ -108,3 +108,15 @@ class ContradiccionDeclaracionCreate(BaseModel):
 class EvidenciaSenalaCreate(BaseModel):
     evidencia_id: str = Field(..., min_length=1)
     sospechoso: str = Field(..., min_length=1)
+
+class AcusacionCreate(BaseModel):
+    """Sospechoso que el detective decide acusar."""
+    sospechoso: str = Field(..., min_length=1)
+
+class AcusacionResponse(BaseModel):
+    caso: str
+    sospechoso_acusado: str
+    correcto: bool
+    responsable_logico: str | None
+    nivel_sospecha: int
+    explicacion: list[Any]

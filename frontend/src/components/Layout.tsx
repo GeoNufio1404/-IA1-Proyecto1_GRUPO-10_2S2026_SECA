@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-export type ViewName = 'inicio' | 'caso' | 'sospechosos' | 'analisis' | 'resultado' | 'admin' | 'sistema'
+export type ViewName = 'inicio' | 'caso' | 'sospechosos' | 'analisis' | 'resultado' | 'acusacion' | 'admin' | 'sistema'
 
 interface Props {
   children: ReactNode
@@ -9,7 +9,7 @@ interface Props {
   caseTitle?: string
 }
 
-type IconName = 'home' | 'case' | 'users' | 'chart' | 'check' | 'settings' | 'server'
+type IconName = 'home' | 'case' | 'users' | 'chart' | 'check' | 'gavel' | 'settings' | 'server'
 
 const nav: Array<[ViewName, string, IconName]> = [
   ['inicio', 'Inicio', 'home'],
@@ -17,6 +17,7 @@ const nav: Array<[ViewName, string, IconName]> = [
   ['sospechosos', 'Sospechosos', 'users'],
   ['analisis', 'Análisis', 'chart'],
   ['resultado', 'Resultado', 'check'],
+  ['acusacion', 'Acusación', 'gavel'],
   ['admin', 'Administración', 'settings'],
   ['sistema', 'Sistema', 'server'],
 ]
@@ -46,6 +47,8 @@ function Icon({ name, className }: { name: IconName; className?: string }) {
       return <svg {...shared}><circle cx="12" cy="12" r="3" /><path d="M12 3.5v2.2M12 18.3v2.2M4.7 6.3l1.6 1.5M17.7 16.2l1.6 1.5M3.5 12h2.2M18.3 12h2.2M4.7 17.7l1.6-1.5M17.7 7.8l1.6-1.5" /></svg>
     case 'server':
       return <svg {...shared}><rect x="4.5" y="4.5" width="15" height="5.5" rx="1.2" /><rect x="4.5" y="14" width="15" height="5.5" rx="1.2" /><path d="M7.5 7.3h.01M7.5 16.8h.01" /></svg>
+    case 'gavel':
+      return <svg {...shared}><path d="M14 5l5 5-2.5 2.5-5-5z" /><path d="M9 10l5 5-6 6-5-5z" /><path d="M4 21h7" /></svg>
   }
 }
 
@@ -65,9 +68,8 @@ export function Layout({ children, view, onNavigate, caseTitle }: Props) {
             <button
               key={id}
               onClick={() => onNavigate(id)}
-              className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                view === id ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-600 hover:bg-gray-100'
-              }`}
+              className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${view === id ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-600 hover:bg-gray-100'
+                }`}
             >
               <Icon name={icon} className={`h-[18px] w-[18px] shrink-0 ${view === id ? 'text-indigo-600' : 'text-gray-400'}`} />
               {label}
@@ -101,9 +103,8 @@ export function Layout({ children, view, onNavigate, caseTitle }: Props) {
             <button
               key={id}
               onClick={() => onNavigate(id)}
-              className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-xs ${
-                view === id ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-500'
-              }`}
+              className={`flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-xs ${view === id ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-500'
+                }`}
             >
               <Icon name={icon} className="h-4 w-4" />
               {label}

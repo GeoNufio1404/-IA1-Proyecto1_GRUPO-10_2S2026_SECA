@@ -4,7 +4,7 @@ import type {
   EvidenciaCreate, EvidenceResponse, EvidenceTotalResponse, EvidenciaSenalaCreate, ExplanationResponse,
   FalseInfoResponse, HealthResponse, LugarCreate, LugarIncidenteCreate, MeansResponse, MediosCreate,
   MotivesResponse, MotivoCreate, OpportunityResponse, PrincipalResponse, QueryResponse, ResponsibleResponse,
-  SospechosoCreate, SuspectsResponse, SuspicionLevelResponse,
+  SospechosoCreate, SuspectsResponse, SuspicionLevelResponse,AccusationResponse,
 } from '../types'
 
 const BASE_URL = '/api'
@@ -40,6 +40,7 @@ export const api = {
   health: () => request<HealthResponse>('/health'),
   query: (goal: string, limit = 100) => post<QueryResponse>('/query', { goal, limit }),
 
+  acusar: (caso: string, sospechoso: string) => post<AccusationResponse>(`/casos/${caso}/acusar`, { sospechoso }),
   casos: () => request<CasesResponse>('/casos'),
   sospechosos: (caso: string) => request<SuspectsResponse>(`/casos/${encodeURIComponent(caso)}/sospechosos`),
   accesos: (caso: string, sospechoso: string) => request<AccessResponse>(`/casos/${caso}/accesos/${sospechoso}`),

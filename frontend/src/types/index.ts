@@ -48,3 +48,12 @@ export interface AccesoCreate { sospechoso: string; lugar: string; hora: string 
 export interface ContradiccionEvidenciaCreate { declaracion_id: string; evidencia_id: string }
 export interface ContradiccionDeclaracionCreate { declaracion_a: string; declaracion_b: string }
 export interface EvidenciaSenalaCreate { evidencia_id: string; sospechoso: string }
+
+export interface AccusationResponse {
+  caso: string
+  sospechoso_acusado: string
+  correcto: boolean
+  responsable_logico: string | null
+  nivel_sospecha: number
+  explicacion: unknown[]
+}
