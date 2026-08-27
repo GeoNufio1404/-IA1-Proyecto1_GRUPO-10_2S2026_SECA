@@ -1,0 +1,94 @@
+{
+  "entradas": [
+    {
+      "id": "c8cc72bf53be",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T15:42:18.622925+00:00"
+    },
+    {
+      "id": "5ab5bb85edb1",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "estudiante_alvarez",
+      "detalle": "El detective acuso a estudiante_alvarez.",
+      "correcto": false,
+      "nivel_sospecha": 3,
+      "timestamp": "2026-08-27T15:45:50.318977+00:00"
+    },
+    {
+      "id": "b48351436e99",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "secretaria_paz",
+      "detalle": "El detective acuso a secretaria_paz.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T15:45:52.343422+00:00"
+    },
+    {
+      "id": "9255de200fe2",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "secretaria_paz",
+      "detalle": "El detective acuso a secretaria_paz.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T15:46:04.911699+00:00"
+    },
+    {
+      "id": "3cad6bbc0a2a",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-27T15:47:33.590698+00:00"
+    },
+    {
+      "id": "831cebe1e9cc",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "carla_ruiz",
+      "detalle": "El detective acuso a carla_ruiz.",
+      "correcto": false,
+      "nivel_sospecha": 3,
+      "timestamp": "2026-08-27T15:47:35.880894+00:00"
+    },
+    {
+      "id": "3fa87d5f9a62",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T15:47:37.512087+00:00"
+    },
+    {
+      "id": "e6d56cc98c16",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T15:47:51.294956+00:00"
+    },
+    {
+      "id": "e15beee453e9",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-27T16:38:02.358737+00:00"
+    }
+  ]
+}

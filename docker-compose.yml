@@ -7,9 +7,7 @@
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.dev
+    image: python:3.11-slim
     working_dir: /app
     ports:
       - '8000:8000'
@@ -20,8 +18,12 @@ services:
       # Sin build de Vite montado, el backend sirve solo la API.
       STATIC_DIR: /app/static
     volumes:
-      - ./backend:/app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --workers 1
+      - ./backend:/app:Z
+    command: >
+      bash -c "apt-get update &&
+      apt-get install -y --no-install-recommends swi-prolog-nox &&
+      pip install --no-cache-dir -r requirements.txt &&
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --workers 1"
 
   frontend:
     image: node:20-alpine
@@ -29,7 +31,7 @@ services:
     ports:
       - '5173:5173'
     volumes:
-      - ./frontend:/app
+      - ./frontend:/app:Z
       # Volumen anonimo para que node_modules del contenedor no sea pisado por
       # el del host (que puede tener binarios compilados para Windows).
       - /app/node_modules

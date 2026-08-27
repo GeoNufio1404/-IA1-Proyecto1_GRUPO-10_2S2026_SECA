@@ -4,7 +4,7 @@ import type {
   EvidenciaCreate, EvidenceResponse, EvidenceTotalResponse, EvidenciaSenalaCreate, ExplanationResponse,
   FalseInfoResponse, HealthResponse, LugarCreate, LugarIncidenteCreate, MeansResponse, MediosCreate,
   MotivesResponse, MotivoCreate, OpportunityResponse, PrincipalResponse, QueryResponse, ResponsibleResponse,
-  SospechosoCreate, SuspectsResponse, SuspicionLevelResponse,AccusationResponse,
+  SospechosoCreate, SuspectsResponse, SuspicionLevelResponse, AccusationResponse, BitacoraEntry,
 } from '../types'
 
 const BASE_URL = '/api'
@@ -39,6 +39,7 @@ const post = <T>(path: string, body: unknown) => request<T>(path, { method: 'POS
 export const api = {
   health: () => request<HealthResponse>('/health'),
   query: (goal: string, limit = 100) => post<QueryResponse>('/query', { goal, limit }),
+  getBitacora: () => request<BitacoraEntry[]>('/bitacora'),
 
   acusar: (caso: string, sospechoso: string) => post<AccusationResponse>(`/casos/${caso}/acusar`, { sospechoso }),
   casos: () => request<CasesResponse>('/casos'),

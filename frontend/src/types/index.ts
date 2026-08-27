@@ -57,3 +57,14 @@ export interface AccusationResponse {
   nivel_sospecha: number
   explicacion: unknown[]
 }
+
+export interface BitacoraEntry {
+  id?: string;
+  timestamp: string;
+  caso_id?: string;
+  sospechoso?: string;
+  resultado: string;
+  reglas_aplicadas?: string[];
+  detalles?: Record<string, any>;
+  [key: string]: any;
+}

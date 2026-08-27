@@ -6,14 +6,15 @@ import logging
 
 from fastapi import APIRouter, HTTPException, status
 
-from app.config import settings
 from app.models.schemas import (
     HealthResponse, QueryRequest, QueryResponse,
     CasoCreate, SospechosoCreate, LugarCreate, LugarIncidenteCreate,
     EvidenciaCreate, DeclaracionCreate, MotivoCreate, MediosCreate,
     AccesoCreate, ContradiccionEvidenciaCreate, ContradiccionDeclaracionCreate,
     EvidenciaSenalaCreate, AcusacionCreate,
+    BitacoraEntradaCreate, InformeFinalResponse,
 )
+from app.services import bitacora
 from app.services.prolog_engine import PrologError, get_engine, quote_atom
 
 logger = logging.getLogger(__name__)
@@ -523,6 +524,15 @@ def acusar_sospechoso(caso: str, payload: AcusacionCreate):
     nivel = sol_nivel[0].get("Nivel", 0) if sol_nivel else 0
     razones = sol_explicacion[0].get("ListaDeRazones", []) if sol_explicacion else []
 
+    bitacora.agregar_entrada(
+        caso=caso,
+        tipo="acusacion",
+        detalle=f"El detective acuso a {payload.sospechoso}.",
+        sospechoso=payload.sospechoso,
+        correcto=responsable_logico == payload.sospechoso,
+        nivel_sospecha=nivel,
+    )
+
     return {
         "caso": caso,
         "sospechoso_acusado": payload.sospechoso,
@@ -531,6 +541,108 @@ def acusar_sospechoso(caso: str, payload: AcusacionCreate):
         "nivel_sospecha": nivel,
         "explicacion": razones,
     }
+
+"======================================================"
+@router.post("/casos/{caso}/bitacora", tags=["bitacora"], status_code=status.HTTP_201_CREATED)
+def registrar_bitacora(caso: str, payload: BitacoraEntradaCreate):
+    """Registra una accion del detective (consulta, acusacion, etc.).
+
+    No involucra logica deductiva: es persistencia simple de lo que el
+    detective fue haciendo durante la investigacion.
+    """
+    validar_caso(caso)
+    if payload.sospechoso:
+        validar_sospechoso(caso, payload.sospechoso)
+
+    entrada = bitacora.agregar_entrada(
+        caso=caso,
+        tipo=payload.tipo,
+        detalle=payload.detalle,
+        sospechoso=payload.sospechoso,
+    )
+    return entrada
+
+
+@router.get("/casos/{caso}/bitacora", tags=["bitacora"])
+def obtener_bitacora_caso(caso: str):
+    """Devuelve la bitacora completa de un caso, mas reciente primero."""
+    validar_caso(caso)
+    return {
+        "caso": caso,
+        "entradas": bitacora.obtener_bitacora(caso),
+    }
+
+
+@router.get("/investigaciones", tags=["bitacora"])
+def obtener_historial_investigaciones():
+    """Historial de investigaciones resueltas (acusaciones), cualquier caso.
+
+    Funcionalidad opcional listada explicitamente en el enunciado.
+    """
+    return {
+        "investigaciones": bitacora.obtener_investigaciones(),
+    }
+
+
+"======================================================"
+@router.get("/casos/{caso}/informe", response_model=InformeFinalResponse, tags=["casos"])
+def obtener_informe_final(caso: str):
+    """Genera el informe final del caso: conclusion logica + bitacora de la
+    investigacion. Requisito obligatorio del enunciado.
+    """
+    try:
+        sol_caso = get_engine().query(f"caso({quote_atom(caso)}, Titulo)", limit=1)
+    except PrologError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+    if not sol_caso:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"El caso '{caso}' no existe.")
+    titulo = sol_caso[0].get("Titulo", caso)
+
+    try:
+        sol_responsable = get_engine().query(
+            f"responsable_logico({quote_atom(caso)}, Sospechoso)", limit=1
+        )
+    except PrologError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+    responsable = sol_responsable[0].get("Sospechoso") if sol_responsable else None
+
+    nivel = None
+    explicacion: list = []
+    evidencias: list = []
+    if responsable:
+        try:
+            sol_nivel = get_engine().query(
+                f"nivel_sospecha({quote_atom(caso)}, {quote_atom(responsable)}, Nivel)", limit=1
+            )
+            sol_explicacion = get_engine().query(
+                f"explicacion({quote_atom(caso)}, {quote_atom(responsable)}, ListaDeRazones)", limit=1
+            )
+            evidencias = get_engine().query(
+                f"evidencia_relacionada({quote_atom(caso)}, {quote_atom(responsable)}, Evidencia)"
+            )
+        except PrologError as exc:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+        nivel = sol_nivel[0].get("Nivel") if sol_nivel else None
+        explicacion = sol_explicacion[0].get("ListaDeRazones", []) if sol_explicacion else []
+
+    try:
+        contradicciones = get_engine().query(
+            f"contradiccion_declaraciones({quote_atom(caso)}, SospechosoA, SospechosoB)"
+        )
+    except PrologError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    return InformeFinalResponse(
+        caso=caso,
+        titulo=titulo,
+        responsable_logico=responsable,
+        nivel_sospecha=nivel,
+        explicacion=explicacion,
+        evidencias_relacionadas=evidencias,
+        contradicciones_declaraciones=contradicciones,
+        bitacora=bitacora.obtener_bitacora(caso),
+        generado_en=datetime.utcnow().isoformat(),
+    )
 
 "====================== ENDPOINTS DE CREACION (MODULO ADMINISTRATIVO) ======================"
 

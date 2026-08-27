@@ -120,3 +120,33 @@ class AcusacionResponse(BaseModel):
     responsable_logico: str | None
     nivel_sospecha: int
     explicacion: list[Any]
+
+class BitacoraEntradaCreate(BaseModel):
+    """Una accion del detective que se quiere dejar registrada."""
+    tipo: str = Field(..., min_length=1, description="Ej. 'consulta_sospechoso', 'consulta_evidencias', 'acusacion'")
+    detalle: str = Field(..., min_length=1)
+    sospechoso: str | None = None
+
+
+class BitacoraEntrada(BaseModel):
+    id: str
+    caso: str
+    tipo: str
+    detalle: str
+    sospechoso: str | None = None
+    correcto: bool | None = None
+    nivel_sospecha: int | None = None
+    timestamp: str
+
+
+class InformeFinalResponse(BaseModel):
+    """Informe final del caso"""
+    caso: str
+    titulo: str
+    responsable_logico: str | None
+    nivel_sospecha: int | None
+    explicacion: list[Any]
+    evidencias_relacionadas: list[Any]
+    contradicciones_declaraciones: list[Any]
+    bitacora: list[BitacoraEntrada]
+    generado_en: str
