@@ -328,6 +328,15 @@ contradiccion_declaraciones(Caso, SospechosoA, SospechosoB) :-
     declaracion(Caso, DeclB, SospechosoB, _),
     SospechosoA \= SospechosoB.
 
+% Indica si una declaracion especifica fue contradicha, ya sea por
+% evidencia o por otra declaracion (en cualquiera de los dos lados).
+declaracion_contradicha(Caso, DeclId) :-
+    contradice(Caso, DeclId, _).
+declaracion_contradicha(Caso, DeclId) :-
+    contradice_decl(Caso, DeclId, _).
+declaracion_contradicha(Caso, DeclId) :-
+    contradice_decl(Caso, _, DeclId).
+
 % -- Bloque 3: coartadas --
 
 % Coartada invalida si existe una contradiccion contra evidencia.
@@ -439,6 +448,20 @@ explicacion(Caso, Sospechoso, Razones) :-
     sospechoso(Caso, Sospechoso, _),
     findall(Razon, razon_valida(Caso, Sospechoso, Razon), Razones).
 
+
+% ===========================================================================
+% LINEA DE TIEMPO - eventos cronologicos (accesos + evidencias)
+% ===========================================================================
+
+evento_cronologico(Caso, hora(H, M), acceso, Sospechoso, Lugar, Descripcion) :-
+    acceso_registrado(Caso, Sospechoso, Lugar, hora(H, M)),
+    lugar(Caso, Lugar, NombreLugar),
+    format(atom(Descripcion), 'Ingreso a ~w', [NombreLugar]).
+
+evento_cronologico(Caso, hora(H, M), evidencia, Sospechoso, Lugar, DescripEvid) :-
+    acceso_registrado(Caso, Sospechoso, Lugar, hora(H, M)),
+    evidencia_senala(Caso, EvId, Sospechoso),
+    evidencia(Caso, EvId, DescripEvid, _).
 
 % ===========================================================================
 % PERSISTENCIA - permite que el modulo administrativo cree casos, sospechosos,

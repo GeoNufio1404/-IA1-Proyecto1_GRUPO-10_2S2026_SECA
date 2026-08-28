@@ -4,7 +4,9 @@ import type {
   EvidenciaCreate, EvidenceResponse, EvidenceTotalResponse, EvidenciaSenalaCreate, ExplanationResponse,
   FalseInfoResponse, HealthResponse, LugarCreate, LugarIncidenteCreate, MeansResponse, MediosCreate,
   MotivesResponse, MotivoCreate, OpportunityResponse, PrincipalResponse, QueryResponse, ResponsibleResponse,
-  SospechosoCreate, SuspectsResponse, SuspicionLevelResponse, AccusationResponse, BitacoraEntry,
+  SospechosoCreate, SuspectsResponse, SuspicionLevelResponse, AccusationResponse, BitacoraResponse, 
+  InvestigacionesResponse, TimelineResponse, DeclaracionesResponse, InformeFinalResponse,
+  BitacoraEntry,
 } from '../types'
 
 const BASE_URL = '/api'
@@ -39,7 +41,6 @@ const post = <T>(path: string, body: unknown) => request<T>(path, { method: 'POS
 export const api = {
   health: () => request<HealthResponse>('/health'),
   query: (goal: string, limit = 100) => post<QueryResponse>('/query', { goal, limit }),
-  getBitacora: () => request<BitacoraEntry[]>('/bitacora'),
 
   acusar: (caso: string, sospechoso: string) => post<AccusationResponse>(`/casos/${caso}/acusar`, { sospechoso }),
   casos: () => request<CasesResponse>('/casos'),
@@ -73,4 +74,11 @@ export const api = {
   crearContradiccionEvidencia: (caso: string, data: ContradiccionEvidenciaCreate) => post<Record<string, unknown>>(`/casos/${caso}/contradicciones/evidencias`, data),
   crearContradiccionDeclaracion: (caso: string, data: ContradiccionDeclaracionCreate) => post<Record<string, unknown>>(`/casos/${caso}/contradicciones/declaraciones`, data),
   marcarEvidencia: (caso: string, evidenciaId: string, data: EvidenciaSenalaCreate) => post<Record<string, unknown>>(`/casos/${caso}/evidencias/${evidenciaId}/senala`, data),
+
+  getBitacora: (caso: string) => request<BitacoraResponse>(`/casos/${caso}/bitacora`),
+  getInvestigaciones: () => request<InvestigacionesResponse>('/investigaciones'),
+  timeline: (caso: string) => request<TimelineResponse>(`/casos/${caso}/timeline`),
+  declaraciones: (caso: string, persona: string) => request<DeclaracionesResponse>(`/casos/${caso}/declaraciones/${persona}`),
+  registrarBitacora: (caso: string, data: { tipo: string; detalle: string; sospechoso?: string }) => post<BitacoraEntry>(`/casos/${caso}/bitacora`, data),
+  informe: (caso: string) => request<InformeFinalResponse>(`/casos/${caso}/informe`),
 }

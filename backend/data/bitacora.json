@@ -89,6 +89,546 @@
       "correcto": false,
       "nivel_sospecha": 2,
       "timestamp": "2026-08-27T16:38:02.358737+00:00"
+    },
+    {
+      "id": "d29d499d20b8",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-27T20:42:09.325443+00:00"
+    },
+    {
+      "id": "b65a276ad66a",
+      "caso": "caso2",
+      "tipo": "acusacion",
+      "sospechoso": "sofia_delgado",
+      "detalle": "El detective acuso a sofia_delgado.",
+      "correcto": false,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T20:42:32.155467+00:00"
+    },
+    {
+      "id": "e0a5b018c07d",
+      "caso": "caso2",
+      "tipo": "acusacion",
+      "sospechoso": "rene_martinez",
+      "detalle": "El detective acuso a rene_martinez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-27T20:42:54.379011+00:00"
+    },
+    {
+      "id": "5fe81abc002f",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T02:57:19.275519+00:00"
+    },
+    {
+      "id": "7d19c1c124b6",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "carla_ruiz",
+      "detalle": "Interrogatorio a Carla Ruiz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T02:57:23.487724+00:00"
+    },
+    {
+      "id": "f927505778a3",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T02:57:26.312594+00:00"
+    },
+    {
+      "id": "727de36ede60",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "beto_garcia",
+      "detalle": "Interrogatorio a Beto García: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T02:57:31.893364+00:00"
+    },
+    {
+      "id": "8496176ebefc",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "carla_ruiz",
+      "detalle": "El detective acuso a carla_ruiz.",
+      "correcto": false,
+      "nivel_sospecha": 3,
+      "timestamp": "2026-08-28T02:57:37.935537+00:00"
+    },
+    {
+      "id": "f2692cf31c8f",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "carla_ruiz",
+      "detalle": "Interrogatorio a Carla Ruiz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T03:07:35.568247+00:00"
+    },
+    {
+      "id": "e3abbcca4700",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T03:07:37.602484+00:00"
+    },
+    {
+      "id": "217f9a518f14",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T03:07:41.529619+00:00"
+    },
+    {
+      "id": "97ece3a735e3",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T03:29:00.205540+00:00"
+    },
+    {
+      "id": "224d9b1bef7e",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "beto_garcia",
+      "detalle": "El detective acuso a beto_garcia.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-28T03:29:16.315093+00:00"
+    },
+    {
+      "id": "25544c91e935",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T04:02:31.774756+00:00"
+    },
+    {
+      "id": "5277fceddcd4",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:45:37.061357+00:00"
+    },
+    {
+      "id": "a27f4b418363",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "carla_ruiz",
+      "detalle": "Interrogatorio a Carla Ruiz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:46:07.746237+00:00"
+    },
+    {
+      "id": "c82111fce4d8",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:46:38.224935+00:00"
+    },
+    {
+      "id": "9ed32917003c",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "beto_garcia",
+      "detalle": "Interrogatorio a Beto García: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:47:02.663008+00:00"
+    },
+    {
+      "id": "8b661f23a4dd",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T04:47:57.129723+00:00"
+    },
+    {
+      "id": "cae86e56d816",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T04:47:59.886762+00:00"
+    },
+    {
+      "id": "3ba320b0c441",
+      "caso": "caso3",
+      "tipo": "interrogatorio",
+      "sospechoso": "estudiante_alvarez",
+      "detalle": "Interrogatorio a Estudiante Alvarez: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:52:16.158281+00:00"
+    },
+    {
+      "id": "b754501383ed",
+      "caso": "caso3",
+      "tipo": "interrogatorio",
+      "sospechoso": "secretaria_paz",
+      "detalle": "Interrogatorio a Secretaria Paz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:52:25.175189+00:00"
+    },
+    {
+      "id": "ae317eb8b7df",
+      "caso": "caso3",
+      "tipo": "interrogatorio",
+      "sospechoso": "colega_rios",
+      "detalle": "Interrogatorio a Colega Rios: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:53:01.572839+00:00"
+    },
+    {
+      "id": "19c537d0f954",
+      "caso": "caso3",
+      "tipo": "interrogatorio",
+      "sospechoso": "sobrino_torres",
+      "detalle": "Interrogatorio a Sobrino Torres: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:53:04.024957+00:00"
+    },
+    {
+      "id": "57103e2436e4",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "secretaria_paz",
+      "detalle": "El detective acuso a secretaria_paz.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T04:54:24.731695+00:00"
+    },
+    {
+      "id": "1c23d2030565",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "secretaria_paz",
+      "detalle": "El detective acuso a secretaria_paz.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T04:54:48.218006+00:00"
+    },
+    {
+      "id": "eddfab320491",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "secretaria_paz",
+      "detalle": "El detective acuso a secretaria_paz.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T04:54:54.800192+00:00"
+    },
+    {
+      "id": "2d9b1f582748",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:59:45.577283+00:00"
+    },
+    {
+      "id": "087064161160",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "carla_ruiz",
+      "detalle": "Interrogatorio a Carla Ruiz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T04:59:53.641227+00:00"
+    },
+    {
+      "id": "56fbb2bebbde",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T05:00:10.238239+00:00"
+    },
+    {
+      "id": "466866934427",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "beto_garcia",
+      "detalle": "Interrogatorio a Beto García: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T05:00:16.142191+00:00"
+    },
+    {
+      "id": "935f60c350f8",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-28T05:00:29.001662+00:00"
+    },
+    {
+      "id": "14882bf2bcb6",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-28T05:00:31.824196+00:00"
+    },
+    {
+      "id": "583f1eaecd2d",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-28T05:00:38.146830+00:00"
+    },
+    {
+      "id": "43bacc45e49e",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "carla_ruiz",
+      "detalle": "El detective acuso a carla_ruiz.",
+      "correcto": false,
+      "nivel_sospecha": 3,
+      "timestamp": "2026-08-28T05:00:47.263735+00:00"
+    },
+    {
+      "id": "5c126107317f",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T05:04:05.142794+00:00"
+    },
+    {
+      "id": "e96063b936ef",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "mario_lopez",
+      "detalle": "El detective acuso a mario_lopez.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T05:35:28.229534+00:00"
+    },
+    {
+      "id": "abd20e3b8d66",
+      "caso": "caso2",
+      "tipo": "interrogatorio",
+      "sospechoso": "sofia_delgado",
+      "detalle": "Interrogatorio a Sofia Delgado: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:06:33.086081+00:00"
+    },
+    {
+      "id": "6dd27c7bf087",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:06:55.992359+00:00"
+    },
+    {
+      "id": "3a2a4fad2979",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "carla_ruiz",
+      "detalle": "Interrogatorio a Carla Ruiz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:13:09.865333+00:00"
+    },
+    {
+      "id": "882666c2deac",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:13:15.387428+00:00"
+    },
+    {
+      "id": "1ac53ff05d34",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "beto_garcia",
+      "detalle": "Interrogatorio a Beto García: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:13:21.729460+00:00"
+    },
+    {
+      "id": "13308159eab7",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "carla_ruiz",
+      "detalle": "El detective acuso a carla_ruiz.",
+      "correcto": false,
+      "nivel_sospecha": 3,
+      "timestamp": "2026-08-28T06:13:32.804286+00:00"
+    },
+    {
+      "id": "d453cb37b51b",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "carla_ruiz",
+      "detalle": "El detective acuso a carla_ruiz.",
+      "correcto": false,
+      "nivel_sospecha": 3,
+      "timestamp": "2026-08-28T06:44:33.714351+00:00"
+    },
+    {
+      "id": "85da970543ea",
+      "caso": "caso3",
+      "tipo": "interrogatorio",
+      "sospechoso": "sobrino_torres",
+      "detalle": "Interrogatorio a Sobrino Torres: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:52:38.872530+00:00"
+    },
+    {
+      "id": "7505f953384c",
+      "caso": "caso3",
+      "tipo": "acusacion",
+      "sospechoso": "secretaria_paz",
+      "detalle": "El detective acuso a secretaria_paz.",
+      "correcto": true,
+      "nivel_sospecha": 4,
+      "timestamp": "2026-08-28T06:53:16.809989+00:00"
+    },
+    {
+      "id": "0e117db85fb4",
+      "caso": "caso3",
+      "tipo": "interrogatorio",
+      "sospechoso": "secretaria_paz",
+      "detalle": "Interrogatorio a Secretaria Paz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:53:27.017925+00:00"
+    },
+    {
+      "id": "37d0c4dfc6c3",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "beto_garcia",
+      "detalle": "Interrogatorio a Beto García: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:57:19.857851+00:00"
+    },
+    {
+      "id": "ace1bf82aa35",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "mario_lopez",
+      "detalle": "Interrogatorio a Mario López: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T06:57:24.063819+00:00"
+    },
+    {
+      "id": "0d215af4c031",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T07:05:41.745659+00:00"
+    },
+    {
+      "id": "3cf07b38d9a3",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "carla_ruiz",
+      "detalle": "Interrogatorio a Carla Ruiz: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T07:27:38.548738+00:00"
+    },
+    {
+      "id": "5be49b12aa9b",
+      "caso": "caso1",
+      "tipo": "acusacion",
+      "sospechoso": "diego_fernandez",
+      "detalle": "El detective acuso a diego_fernandez.",
+      "correcto": false,
+      "nivel_sospecha": 2,
+      "timestamp": "2026-08-28T07:34:04.504638+00:00"
+    },
+    {
+      "id": "5646a8238681",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "beto_garcia",
+      "detalle": "Interrogatorio a Beto García: 2 declaración(es) revisadas, 2 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T07:41:27.980845+00:00"
+    },
+    {
+      "id": "54c205383e13",
+      "caso": "caso1",
+      "tipo": "interrogatorio",
+      "sospechoso": "diego_fernandez",
+      "detalle": "Interrogatorio a Diego Fernández: 1 declaración(es) revisadas, 1 contradicción(es) detectada(s).",
+      "correcto": null,
+      "nivel_sospecha": null,
+      "timestamp": "2026-08-28T07:41:34.846832+00:00"
     }
   ]
 }

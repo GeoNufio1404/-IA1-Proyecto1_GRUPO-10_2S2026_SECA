@@ -644,6 +644,83 @@ def obtener_informe_final(caso: str):
         generado_en=datetime.utcnow().isoformat(),
     )
 
+"======================================================"
+@router.get("/casos/{caso}/declaraciones/{persona}", tags=["casos"])
+def obtener_declaraciones(caso: str, persona: str):
+    """Declaraciones de un sospechoso o testigo, marcando cuales fueron
+    contradichas. La deteccion de contradiccion es un predicado Prolog
+    (declaracion_contradicha/2); Python solo cruza el resultado con la
+    lista base, sin agregar logica deductiva nueva.
+    """
+    validar_caso(caso)
+
+    objetivo = f"declaracion({quote_atom(caso)}, DeclId, {quote_atom(persona)}, Contenido)"
+    try:
+        declaraciones = get_engine().query(objetivo)
+    except PrologError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    resultado = []
+    for d in declaraciones:
+        decl_id = d["DeclId"]
+        try:
+            contradicha = get_engine().ask(
+                f"declaracion_contradicha({quote_atom(caso)}, {quote_atom(decl_id)})"
+            )
+        except PrologError as exc:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+        resultado.append({"id": decl_id, "contenido": d["Contenido"], "contradicha": contradicha})
+
+    return {"caso": caso, "persona": persona, "declaraciones": resultado}
+
+"======================================================"
+@router.get("/casos/{caso}/timeline", tags=["casos"])
+def obtener_timeline(caso: str):
+    """Linea de tiempo combinando accesos y evidencias vinculadas a cada
+    sospechoso en el momento de su acceso. El join sigue viviendo en Prolog
+    (evento_cronologico/5 + sospechoso/3 + lugar/3); Python solo ordena y
+    da formato de salida.
+    """
+    validar_caso(caso)
+
+    objetivo = (
+        f"evento_cronologico({quote_atom(caso)}, hora(H,M), Tipo, Sospechoso, Lugar, Descripcion), "
+        f"sospechoso({quote_atom(caso)}, Sospechoso, NombreSospechoso), "
+        f"lugar({quote_atom(caso)}, Lugar, NombreLugar)"
+    )
+
+    try:
+        soluciones = get_engine().query(objetivo)
+        incidente = get_engine().query(
+            f"lugar_del_incidente({quote_atom(caso)}, LugarIncidente)", limit=1
+        )
+    except PrologError as exc:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
+
+    lugar_incidente = incidente[0].get("LugarIncidente") if incidente else None
+
+    eventos = [
+        {
+            "tipo": s["Tipo"],
+            "sospechoso": s["Sospechoso"],
+            "nombre_sospechoso": s["NombreSospechoso"],
+            "lugar": s["Lugar"],
+            "nombre_lugar": s["NombreLugar"],
+            "descripcion": s["Descripcion"],
+            "hora": f"{int(s['H']):02d}:{int(s['M']):02d}",
+            "hora_minutos": int(s["H"]) * 60 + int(s["M"]),
+            "es_lugar_incidente": s["Lugar"] == lugar_incidente,
+        }
+        for s in soluciones
+    ]
+    eventos.sort(key=lambda e: (e["hora_minutos"], e["tipo"]))
+
+    return {
+        "caso": caso,
+        "lugar_incidente": lugar_incidente,
+        "eventos": eventos,
+    }
+
 "====================== ENDPOINTS DE CREACION (MODULO ADMINISTRATIVO) ======================"
 
 @router.post("/casos", tags=["admin"], status_code=status.HTTP_201_CREATED)

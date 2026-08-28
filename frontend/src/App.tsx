@@ -9,9 +9,12 @@ import { ResultPage } from './pages/ResultPage'
 import { AdminPage } from './pages/AdminPage'
 import { SystemPage } from './pages/SystemPage'
 import { AccusationPage } from './pages/AccusationPage'
+import { useAcusacion } from './lib/investigationState'
+import { Empty } from './components/UI'
 
 export default function App() {
     const [view, setView] = useState<ViewName>('inicio'); const [currentCase, setCurrentCase] = useState<CaseItem | null>(null); const [selected, setSelected] = useState<SuspectItem | null>(null)
+    const { acusado, marcar: marcarAcusado } = useAcusacion(currentCase?.Caso)
     const openCase = (c: CaseItem) => { setCurrentCase(c); setSelected(null); setView('caso') }
     const openSuspect = (s: SuspectItem) => { setSelected(s); setView('sospechosos') }
     let content = null
@@ -29,8 +32,9 @@ export default function App() {
             content = (
                 <CasePage
                     currentCase={currentCase}
-                    onSelectSuspect={openSuspect}
+                    onGoSuspects={() => setView('sospechosos')}
                     onGoAnalysis={() => setView('analisis')}
+                    onGoAccusation={() => setView('acusacion')}
                 />
             )
             break
@@ -47,7 +51,15 @@ export default function App() {
             content = <AnalysisPage currentCase={currentCase} />
             break
         case 'resultado':
-            content = <ResultPage currentCase={currentCase} />
+            // Guarda de acceso: "Resultado" solo es visitable tras acusar en
+            // este caso. No hay boton de nav hacia aqui; la unica entrada es
+            // el CTA de AccusationPage, pero esto cubre cualquier otro intento
+            // (ej. estado stale al cambiar de vista rapido).
+            content = acusado
+                ? <ResultPage currentCase={currentCase} />
+                : (
+                    <Empty text="Todavía no has formulado una acusación en este caso. Ve a Acusación para concluir la investigación." />
+                )
             break
         case 'admin':
             content = (
@@ -63,7 +75,14 @@ export default function App() {
             content = <SystemPage />
             break
         case 'acusacion':
-            content = <AccusationPage currentCase={currentCase} />
+            content = (
+                <AccusationPage
+                    currentCase={currentCase}
+                    acusado={acusado}
+                    onAcusacionRegistrada={marcarAcusado}
+                    onGoResult={() => setView('resultado')}
+                />
+            )
     }
 
     return <Layout view={view} onNavigate={setView} caseTitle={currentCase?.Titulo}>{content}</Layout>

@@ -15,6 +15,56 @@ export interface QueryResponse {
   solutions: Array<Record<string, unknown>>
 }
 
+export interface AccusationResponse {
+  caso: string
+  sospechoso_acusado: string
+  correcto: boolean
+  responsable_logico: string | null
+  nivel_sospecha: number
+  explicacion: unknown[]
+}
+
+export interface BitacoraEntry {
+  id: string
+  caso: string
+  tipo: string
+  sospechoso: string | null
+  detalle: string
+  correcto: boolean | null
+  nivel_sospecha: number | null
+  timestamp: string
+}
+
+export interface TimelineEvento {
+  tipo: 'acceso' | 'evidencia'
+  sospechoso: string
+  nombre_sospechoso: string
+  lugar: string
+  nombre_lugar: string
+  descripcion: string
+  hora: string
+  hora_minutos: number
+  es_lugar_incidente: boolean
+}
+
+export interface InformeFinalResponse {
+  caso: string
+  titulo: string
+  responsable_logico: string | null
+  nivel_sospecha: number | null
+  explicacion: unknown[]
+  evidencias_relacionadas: GenericSolution[]
+  contradicciones_declaraciones: GenericSolution[]
+  bitacora: BitacoraEntry[]
+  generado_en: string
+}
+
+export interface BitacoraResponse { caso: string; entradas: BitacoraEntry[] }
+export interface InvestigacionesResponse { investigaciones: BitacoraEntry[] }
+export interface TimelineResponse { caso: string; lugar_incidente: string | null; eventos: TimelineEvento[] }
+export interface DeclaracionItem { id: string; contenido: string; contradicha: boolean }
+export interface DeclaracionesResponse { caso: string; persona: string; declaraciones: DeclaracionItem[] }
+
 export interface CaseItem { Caso: string; Titulo: string }
 export interface SuspectItem { Id: string; Nombre: string }
 export interface GenericSolution { [key: string]: unknown }
@@ -48,23 +98,3 @@ export interface AccesoCreate { sospechoso: string; lugar: string; hora: string 
 export interface ContradiccionEvidenciaCreate { declaracion_id: string; evidencia_id: string }
 export interface ContradiccionDeclaracionCreate { declaracion_a: string; declaracion_b: string }
 export interface EvidenciaSenalaCreate { evidencia_id: string; sospechoso: string }
-
-export interface AccusationResponse {
-  caso: string
-  sospechoso_acusado: string
-  correcto: boolean
-  responsable_logico: string | null
-  nivel_sospecha: number
-  explicacion: unknown[]
-}
-
-export interface BitacoraEntry {
-  id?: string;
-  timestamp: string;
-  caso_id?: string;
-  sospechoso?: string;
-  resultado: string;
-  reglas_aplicadas?: string[];
-  detalles?: Record<string, any>;
-  [key: string]: any;
-}

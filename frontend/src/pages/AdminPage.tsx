@@ -25,13 +25,13 @@ export function AdminPage({ currentCase, onCaseCreated }: { currentCase: CaseIte
 
   const input = (key: string, label: string, placeholder = '') => (
     <label className="block">
-      <span className="mb-1 block text-xs font-medium text-gray-500">{label}</span>
+      <span className="mb-1 block text-xs font-bold uppercase text-[#5a4d41]">{label}</span>
       <input
         value={f[key] || ''}
         onChange={e => setF({ ...f, [key]: e.target.value })}
         placeholder={placeholder}
         required
-        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100"
+        className="w-full rounded-sm border border-[#5a4d41] bg-[#f7f3e9] px-3 py-2.5 text-sm font-medium text-[#110e0c] outline-none focus:border-[#110e0c] focus:ring-1 focus:ring-[#110e0c]"
       />
     </label>
   )
@@ -91,41 +91,55 @@ export function AdminPage({ currentCase, onCaseCreated }: { currentCase: CaseIte
         text="Panel para consumir todos los endpoints POST creados actualmente en FastAPI. Los cambios se aplican a la base cargada por Prolog durante la ejecución."
       />
       <ErrorBox error={error} />
-      {success && <div className="mb-4 rounded-lg border border-emerald-100 bg-emerald-50 p-3 text-sm text-emerald-700">{success}</div>}
+      {success && <div className="mb-4 rounded-sm border border-emerald-600 bg-emerald-100 p-3 text-sm font-bold text-emerald-950">{success}</div>}
       <div className="grid gap-4 lg:grid-cols-[300px_1fr]">
         <Panel>
-          <h3 className="mb-3 font-semibold text-gray-900">Operación</h3>
-          <div className="space-y-1">
-            {actions.map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => { setAction(id); setF({}); setError(null); setSuccess(null) }}
-                className={`w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${action === id ? 'bg-indigo-50 font-medium text-indigo-700' : 'text-gray-600 hover:bg-gray-50'}`}
-              >
-                {label}
-              </button>
-            ))}
+          <h3 className="mb-3 font-bold !text-[#110e0c] border-b border-[#5a4d41]/40 pb-1">Operación</h3>
+          <div className="space-y-1 suspect-list">
+            {actions.map(([id, label]) => {
+              const esSeleccionado = action === id
+              return (
+                <button
+                  key={id}
+                  onClick={() => { setAction(id); setF({}); setError(null); setSuccess(null) }}
+                  className={`suspect-item w-full rounded-sm border-2 p-2.5 text-left text-sm font-bold transition-all ${
+                    esSeleccionado 
+                      ? '!bg-[#110e0c] !border-[#110e0c] !text-white shadow-md' 
+                      : 'border-[#5a4d41]/40 !text-[#110e0c]'
+                  }`}
+                >
+                  {label}
+                </button>
+              )
+            })}
           </div>
         </Panel>
         <Panel>
-          <div className="mb-5 flex items-center justify-between">
+          <div className="mb-5 flex items-center justify-between border-b border-[#5a4d41]/40 pb-3">
             <div>
-              <h3 className="font-semibold text-gray-900">{actions.find(x => x[0] === action)?.[1]}</h3>
-              <p className="text-xs text-gray-400">Endpoint administrativo</p>
+              <h3 className="font-bold !text-[#110e0c] text-lg uppercase tracking-wide">{actions.find(x => x[0] === action)?.[1]}</h3>
+              <p className="text-xs font-semibold text-[#5a4d41]">Endpoint administrativo</p>
             </div>
             <Pill tone="amber">POST</Pill>
           </div>
           <form onSubmit={submit} className="space-y-4">
             {action !== 'caso' && (
               <label className="block">
-                <span className="mb-1 block text-xs font-medium text-gray-500">Caso</span>
-                <select value={caseId} onChange={e => setCaseId(e.target.value)} className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900">
+                <span className="mb-1 block text-xs font-bold uppercase text-[#5a4d41]">Caso</span>
+                <select 
+                  value={caseId} 
+                  onChange={e => setCaseId(e.target.value)} 
+                  className="w-full rounded-sm border border-[#5a4d41] bg-[#f7f3e9] px-3 py-2.5 text-sm font-medium text-[#110e0c]"
+                >
                   {cases.map(c => <option key={c.Caso} value={c.Caso}>{c.Titulo} ({c.Caso})</option>)}
                 </select>
               </label>
             )}
             {fields()}
-            <button disabled={saving} className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-50">
+            <button 
+              disabled={saving} 
+              className="w-full rounded-sm !bg-[#110e0c] px-4 py-2.5 text-sm font-bold !text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+            >
               {saving ? 'Guardando…' : 'Ejecutar operación'}
             </button>
           </form>
@@ -134,4 +148,3 @@ export function AdminPage({ currentCase, onCaseCreated }: { currentCase: CaseIte
     </>
   )
 }
-

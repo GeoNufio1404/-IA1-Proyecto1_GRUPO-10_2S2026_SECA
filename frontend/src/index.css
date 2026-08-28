@@ -1,10 +1,239 @@
+/* ==========================================================================
+   1. IMPORTS Y FUENTES (SIEMPRE PRIMERO)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap');
+
 @import 'tailwindcss';
 @import 'flowbite-react/plugin/tailwindcss';
 @source '../.flowbite-react/class-list.json';
 
-:root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color-scheme: light; background: #f9fafb; }
-* { box-sizing: border-box; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: #f9fafb; line-height: 1.5; }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-::selection { background: rgba(79,70,229,.18); }
+/* ==========================================================================
+   2. VARIABLES Y RESET GLOBAL
+   ========================================================================== */
+:root {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  color-scheme: light;
+  background: #bfa075;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #bfa075 !important;
+  color: #1f1a17 !important;
+  line-height: 1.5;
+  font-family: 'Courier Prime', 'Courier New', monospace !important;
+  position: relative;
+}
+
+/* Selección de texto */
+::selection {
+  background: #110e0c;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   3. TIPOGRAFÍA Y CABECERAS
+   ========================================================================== */
+p, span, label, td, th, a, li {
+  color: #1a1614 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Special Elite', 'Courier Prime', monospace !important;
+  letter-spacing: 0.5px;
+  color: #110e0c !important;
+  text-transform: uppercase;
+}
+
+button, input, select, textarea {
+  font-family: 'Courier Prime', monospace !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   4. LAYOUT / SIDEBAR & HEADER
+   ========================================================================== */
+aside, header, nav {
+  transform: none !important;
+  transition: none !important;
+  z-index: 20 !important;
+}
+
+aside *, header * {
+  transform: none !important;
+}
+
+main {
+  position: relative;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   5. POST-IT SUELTO DE CORNER
+   ========================================================================== */
+body::after {
+  content: "EVIDENCIA #08\A- Coartada falsa\A- Preguntar a Ana";
+  white-space: pre-wrap;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 140px;
+  padding: 12px 10px;
+  background-color: #fff49c;
+  font-family: 'Special Elite', cursive;
+  font-size: 0.72rem;
+  color: #332b00;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 4px 5px 12px rgba(0, 0, 0, 0.3);
+  transform: rotate(-6deg);
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* ==========================================================================
+   6. CONTENEDORES PRINCIPALES Y POST-ITS
+   ========================================================================== */
+main .bg-white,
+main section,
+main [class*="bg-gray-"],
+main [class*="bg-slate-"],
+main [class*="bg-zinc-"] {
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.18) !important;
+  transition: none !important;
+}
+
+main .bg-white,
+main section:nth-child(5n+1),
+main [class*="bg-gray-"]:nth-child(5n+1) {
+  background-color: #fff49c !important;
+  transform: rotate(-0.4deg) !important;
+}
+
+main section:nth-child(5n+2),
+main [class*="bg-gray-"]:nth-child(5n+2),
+main [class*="bg-slate-"]:nth-child(5n+2) {
+  background-color: #d1f7c4 !important;
+  transform: rotate(0.5deg) !important;
+}
+
+main section:nth-child(5n+3),
+main [class*="bg-gray-"]:nth-child(5n+3),
+main [class*="bg-slate-"]:nth-child(5n+3) {
+  background-color: #c5eff7 !important;
+  transform: rotate(-0.3deg) !important;
+}
+
+main section:nth-child(5n+4),
+main [class*="bg-gray-"]:nth-child(5n+4),
+main [class*="bg-slate-"]:nth-child(5n+4) {
+  background-color: #ffd1dc !important;
+  transform: rotate(0.4deg) !important;
+}
+
+main section:nth-child(5n+0),
+main [class*="bg-gray-"]:nth-child(5n+0),
+main [class*="bg-slate-"]:nth-child(5n+0) {
+  background-color: #e3d7ff !important;
+  transform: rotate(-0.2deg) !important;
+}
+
+/* ==========================================================================
+   7. CHINCHETAS / PINS ROJOS
+   ========================================================================== */
+main section,
+main .panel-pin {
+  position: relative;
+  margin-top: 12px;
+}
+
+main section::before,
+main .panel-pin::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: #a82424;
+  border-radius: 50%;
+  border: 1px solid #570000;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.3),
+    inset 2px 2px 3px rgba(255, 255, 255, 0.4);
+  z-index: 25;
+  pointer-events: none;
+}
+
+main section::after,
+main .panel-pin::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: calc(50% + 3px);
+  width: 8px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  z-index: 24;
+  pointer-events: none;
+}
+
+.suspect-item::before,
+.suspect-item::after,
+button::before,
+button::after {
+  content: none !important;
+}
+
+/* ==========================================================================
+   8. COMPONENTES DE LISTAS
+   ========================================================================== */
+.suspect-list .suspect-item:not(.suspect-selected):nth-child(5n+1) { background-color: #fff49c !important; }
+.suspect-list .suspect-item:not(.suspect-selected):nth-child(5n+2) { background-color: #d1f7c4 !important; }
+.suspect-list .suspect-item:not(.suspect-selected):nth-child(5n+3) { background-color: #c5eff7 !important; }
+.suspect-list .suspect-item:not(.suspect-selected):nth-child(5n+4) { background-color: #ffd1dc !important; }
+.suspect-list .suspect-item:not(.suspect-selected):nth-child(5n+0) { background-color: #e3d7ff !important; }
+
+/* ==========================================================================
+   9. FORMULARIOS Y BOTONES
+   ========================================================================== */
+input, select, textarea {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  color: #110e0c !important;
+  border: 1px solid #5a4d41 !important;
+  border-radius: 2px !important;
+  font-weight: 500;
+}
+
+input:focus, select:focus, textarea:focus {
+  background-color: #ffffff !important;
+  border-color: #110e0c !important;
+  outline: none !important;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+main button {
+  font-family: 'Special Elite', 'Courier Prime', monospace !important;
+  background-color: #110e0c !important;
+  color: #ffffff !important;
+  border: 1px solid #110e0c !important;
+  border-radius: 2px !important;
+  padding: 6px 12px;
+  transition: opacity 0.15s ease !important;
+}
+
+main button:hover {
+  opacity: 0.85;
+}

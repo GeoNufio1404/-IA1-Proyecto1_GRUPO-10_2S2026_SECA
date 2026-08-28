@@ -3,7 +3,17 @@ import { api } from '../api/client'
 import type { AccusationResponse, CaseItem, SuspectItem } from '../types'
 import { Empty, ErrorBox, Loading, Panel, Pill, SectionTitle } from '../components/UI'
 
-export function AccusationPage({ currentCase }: { currentCase: CaseItem | null }) {
+export function AccusationPage({
+    currentCase,
+    acusado,
+    onAcusacionRegistrada,
+    onGoResult,
+}: {
+    currentCase: CaseItem | null
+    acusado: boolean
+    onAcusacionRegistrada: () => void
+    onGoResult: () => void
+}) {
     const [suspects, setSuspects] = useState<SuspectItem[]>([])
     const [chosen, setChosen] = useState<SuspectItem | null>(null)
     const [result, setResult] = useState<AccusationResponse | null>(null)
@@ -21,7 +31,9 @@ export function AccusationPage({ currentCase }: { currentCase: CaseItem | null }
         setAccusing(true)
         setError(null)
         try {
-            setResult(await api.acusar(currentCase.Caso, chosen.Id))
+            const r = await api.acusar(currentCase.Caso, chosen.Id)
+            setResult(r)
+            onAcusacionRegistrada()
         } catch (e: any) {
             setError(e.message)
         } finally {
@@ -37,31 +49,50 @@ export function AccusationPage({ currentCase }: { currentCase: CaseItem | null }
                 eyebrow="Veredicto"
                 title="Acusación final"
                 text="Elige a quién acusas. El motor de Prolog confirma si tu conclusión coincide con el responsable lógico y muestra la explicación completa."
+                action={acusado && !result ? <Pill tone="green">Ya acusaste en este caso</Pill> : undefined}
             />
             <ErrorBox error={error} />
             <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
                 <Panel>
-                    <h3 className="mb-3 font-semibold text-gray-900">Sospechosos</h3>
-                    <div className="space-y-2">
-                        {suspects.map(s => (
-                            <button
-                                key={s.Id}
-                                onClick={() => { setChosen(s); setResult(null) }}
-                                className={`w-full rounded-lg border p-3 text-left transition-colors ${chosen?.Id === s.Id ? 'border-indigo-300 bg-indigo-50' : 'border-gray-200 bg-white hover:border-gray-300'
+                    <h3 className="mb-3 font-bold !text-[#110e0c] border-b border-[#5a4d41]/40 pb-1">Sospechosos</h3>
+                    <div className="space-y-2 suspect-list">
+                        {suspects.map(s => {
+                            const esSeleccionado = chosen?.Id === s.Id
+                            return (
+                                <button
+                                    key={s.Id}
+                                    onClick={() => { setChosen(s); setResult(null) }}
+                                    className={`suspect-item w-full rounded-sm border-2 p-3 text-left transition-all ${
+                                        esSeleccionado 
+                                          ? '!bg-[#110e0c] !border-[#110e0c] shadow-md' 
+                                          : 'border-[#5a4d41]/40'
                                     }`}
-                            >
-                                <div className="font-medium text-gray-900">{s.Nombre}</div>
-                                <div className="text-xs text-gray-400">{s.Id}</div>
-                            </button>
-                        ))}
+                                >
+                                    <div className={`font-bold ${esSeleccionado ? '!text-[#ffffff]' : '!text-[#110e0c]'}`}>
+                                        {s.Nombre}
+                                    </div>
+                                    <div className={`text-xs font-semibold ${esSeleccionado ? '!text-[#d4c5a9]' : '!text-[#5a4d41]'}`}>
+                                        {s.Id}
+                                    </div>
+                                </button>
+                            )
+                        })}
                     </div>
                     <button
                         onClick={acusar}
                         disabled={!chosen || accusing}
-                        className="mt-4 w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
+                        className="mt-4 w-full rounded-sm !bg-[#110e0c] px-4 py-2.5 text-sm font-bold !text-white transition-opacity hover:opacity-90 disabled:opacity-50"
                     >
                         {accusing ? 'Analizando…' : chosen ? `Acusar a ${chosen.Nombre}` : 'Elige un sospechoso'}
                     </button>
+                    {acusado && (
+                        <button
+                            onClick={onGoResult}
+                            className="mt-2 w-full rounded-sm border border-[#110e0c] bg-[#f2ebd9] px-4 py-2.5 text-sm font-bold !text-[#110e0c] transition-colors hover:bg-[#110e0c] hover:!text-white"
+                        >
+                            Ver resultado final →
+                        </button>
+                    )}
                 </Panel>
                 <div>
                     {accusing ? (
@@ -70,27 +101,33 @@ export function AccusationPage({ currentCase }: { currentCase: CaseItem | null }
                         <Empty text="Selecciona a un sospechoso y confirma tu acusación para ver el veredicto." />
                     ) : (
                         <div className="space-y-4">
-                            <Panel className={result.correcto ? 'border-emerald-200 bg-emerald-50/40' : 'border-red-200 bg-red-50/40'}>
+                            <Panel className={result.correcto ? 'border-emerald-600 bg-emerald-100/80' : 'border-red-600 bg-red-100/80'}>
                                 <div className="flex flex-wrap items-center justify-between gap-3">
                                     <div>
                                         <Pill tone={result.correcto ? 'green' : 'red'}>{result.correcto ? 'Acusación correcta' : 'Acusación incorrecta'}</Pill>
-                                        <div className="mt-3 text-2xl font-semibold text-gray-900">{chosen?.Nombre}</div>
+                                        <div className="mt-3 text-2xl font-bold !text-[#110e0c]">{chosen?.Nombre}</div>
                                     </div>
                                     <Pill tone={result.nivel_sospecha >= 3 ? 'red' : result.nivel_sospecha >= 2 ? 'amber' : 'slate'}>
                                         Nivel de sospecha: {result.nivel_sospecha}
                                     </Pill>
                                 </div>
                                 {!result.correcto && result.responsable_logico && (
-                                    <p className="mt-3 text-sm text-gray-600">
+                                    <p className="mt-3 text-sm font-medium !text-[#110e0c]">
                                         El responsable lógico según Prolog es <strong>{result.responsable_logico}</strong>.
                                     </p>
                                 )}
+                                <button
+                                    onClick={onGoResult}
+                                    className="mt-4 rounded-sm !bg-[#110e0c] px-4 py-2.5 text-sm font-bold !text-white transition-opacity hover:opacity-90"
+                                >
+                                    Ir a Resultado →
+                                </button>
                             </Panel>
                             <Panel>
-                                <h3 className="mb-3 font-semibold text-gray-900">Explicación lógica</h3>
+                                <h3 className="mb-3 font-bold !text-[#110e0c] border-b border-[#5a4d41]/40 pb-1">Explicación lógica</h3>
                                 {result.explicacion.length
                                     ? result.explicacion.map((x, i) => (
-                                        <div key={i} className="mb-2 rounded-lg border border-indigo-100 bg-indigo-50 p-3 text-sm text-indigo-800">{String(x)}</div>
+                                        <div key={i} className="mb-2 rounded-sm border border-[#5a4d41]/30 bg-[#f7f3e9] p-3 text-sm font-medium !text-[#110e0c]">{String(x)}</div>
                                     ))
                                     : <Empty text="El motor no reportó razones específicas para esta persona." />}
                             </Panel>
